@@ -1,0 +1,699 @@
+// Шрифты
+@import "font.scss";
+
+// Обнуление
+@import "null.scss";
+
+// Конфигурация
+@import "configuration.scss";
+
+// Селекторы
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: map-get($colors-map, "page-background");
+}
+
+.container {
+  @extend %container;
+}
+
+.icon {
+  @extend %icon;
+}
+
+.nav-link {
+  @extend %nav-link;
+}
+
+.heading {
+  @extend %heading;
+}
+
+.second-heading {
+  @extend %second-heading;
+}
+
+.description {
+  @extend %simple-text;
+  line-height: 1.7;
+}
+
+.button {
+  @extend %button;
+}
+
+.slider {
+  @extend %slider;
+
+  &__slides {
+    @extend %slides;
+  }
+
+  &__slide {
+    @extend %slide;
+  }
+}
+
+.header {
+  background-color: white;
+  
+  &-first-section {
+    border-bottom: 1px solid #dddddd;
+    @include axis-indent(padding, y, 11px);
+    position: fixed;
+      top: 0;
+      z-index: 1000;
+      @include box(100%, 0px);
+    @include respond-to(desktop) {
+      @include axis-indent(padding, y, 29px);
+    }
+    &__content {
+      @include flex(row, center, center, nowrap, 0px);
+      @include respond-to(mini-tablet) {
+        @include flex(row, space-between, center, nowrap, 0px);
+      }
+      .nav {
+        margin-left: 220px;
+        display: none;
+        @include respond-to(desktop) {
+          display: block;
+        }
+        &__list {
+          @include box(530px, 23px);
+          @include flex(row, space-between, center, nowrap, 0px);
+        }
+      }
+    }
+
+    .header {
+      &__search-login {
+        display: none;
+        @include respond-to(mini-tablet) {
+          display: flex;
+        }
+      }
+    }
+  }
+  &-second-section {
+    border-bottom: bottom 1px solid #dddddd;
+    @include axis-indent(padding, y, 14px);
+    @include axis-indent(padding, y, 18px);
+      position: fixed;
+      top: 47px;
+      z-index: 1000;
+      @include box(100%, 0px);
+    @include respond-to(mini-tablet) {
+      top: 49px
+    }
+    @include respond-to(big-tablet) {
+    top: 48.8px;
+    }
+    @include respond-to(desktop) {
+      display: none;
+    }
+
+    &__content {
+      @include flex(row, space-between, center, nowrap, 0px);
+      @include respond-to(mini-tablet) {
+        display: block;
+      }
+    }
+    .nav {
+      display: none;
+      @include respond-to(mini-tablet) {
+        display: block;
+      }
+      &__list {
+        @include flex(row, space-between, center, nowrap, 0px);
+      }
+    }
+  }
+  &__search-login {
+    @include flex(row, space-between, center, nowrap, 30px);
+    @include respond-to(mini-tablet) {
+      display: none;
+    }
+  }
+  &__burger {
+    @include box(30px);
+    @include respond-to(mini-tablet) {
+      display: none;
+    }
+  }
+
+  &__search,
+  &__login {
+    @include box(24px);
+  }
+
+  .menu {
+    position: fixed;
+    top: 44px;
+    left: 0;
+    @include box(100%, 100vh);
+    display: none;
+    background-color: map-get($colors-map, "page-background");
+    z-index: 10;
+    &__list {
+      margin-top: 22px;
+      @include flex(column, flex-start, flex-start, nowrap, 50px);
+    }
+    &__close {
+      margin-top: 15px;
+    }
+    &__content {
+      @include flex(column, flex-start, flex-start, nowrap, 0px);
+    }
+  }
+
+  .search {
+    @include box(auto, 26px);
+    @include flex(row, center, center, nowrap, 7px);
+
+    &__input-button {
+      display: none;
+      position: relative;
+      align-items: center;
+    }
+
+    &__input {
+      @extend %input-text;
+      @include box(150px, 26px);
+      padding-right: 24px;
+      border-bottom: 1px solid map-get($colors-map, "input-border-button");
+      &::placeholder {
+        @extend %input-placeholder;
+      }
+      @include respond-to(mini-tablet) {
+        @include box(226px, 26px);
+      }
+    }
+
+    &__close {
+      @include flex(row, center, center, nowrap, 0px);
+      @include box(16px);
+      position: absolute;
+      right: 0;
+      background-color: map-get($colors-map, "input-border-button");
+      border-radius: 50%;
+      color: map-get($colors-map, "icon-nav-interactive-default");
+      &:hover {
+        background-color: map-get(
+          $colors-map,
+          "link-button-interactive-default"
+        );
+        color: white;
+      }
+      &:active {
+        background-color: map-get(
+          $colors-map,
+          "link-button-interactive-active"
+        );
+      }
+    }
+  }
+}
+
+.main {
+  @include axis-indent(padding, y, 49px);
+  background-color: white;
+  margin-top: 105px;
+  @extend %background-image;
+  @include respond-to(mini-tablet) {
+    background-image: url("../images/mainMiniTablet.png");
+    @include axis-indent(padding, y, 60px);
+    margin-top: 104px;
+  }
+  @include respond-to(big-tablet) {
+    background-image: url("../images/mainBigTablet.png");
+    @include axis-indent(padding, y, 65px);
+    margin-top: 106px;
+  }
+  @include respond-to(desktop) {
+    background-image: url("../images/mainDesktop.png");
+    @include axis-indent(padding, y, 130px);
+    margin-top: 80px;
+  }
+  &__description {
+    padding-top: 15px;
+    padding-bottom: 21px;
+    @extend %main-description;
+    line-height: 1.4;
+    @include respond-to(mini-tablet) {
+      @include axis-indent(padding, y, 20px);
+    }
+    @include respond-to(big-tablet) {
+      @include axis-indent(padding, y, 30px);
+    }
+  }
+  &__text {
+    @include respond-to(mini-tablet) {
+      @include box(287px, 0px);
+    }
+    @include respond-to(big-tablet) {
+      @include box(390px, 0px);
+    }
+    @include respond-to(desktop) {
+      @include box(445px, 0px);
+    }
+  }
+}
+
+.material {
+  @include axis-indent(padding, y, 60px);
+  @include respond-to(desktop) {
+    @include axis-indent(padding, y, 90px);
+  }
+  &__main-content {
+    margin-top: 60px;
+    @include respond-to(mini-tablet) {
+      margin-top: 40px;
+    }
+    @include respond-to(desktop) {
+      margin-top: 90px;
+    }
+    @include respond-to(big-tablet) {
+      @include flex(row, space-between, top, nowrap, 0px);
+    }
+    @include respond-to(desktop) {
+      @include flex(row, space-between, center, nowrap, 0px);
+    }
+  }
+  &__heading {
+    margin-top: 20px;
+    margin-bottom: 14px;
+    @include respond-to(big-tablet) {
+      margin-top: 0px;
+      margin-bottom: 20px;
+    }
+  }
+  &__image {
+    @include box(290px, 223px);
+    @include respond-to(mini-tablet) {
+      @include box(330px, 255px);
+    }
+    @include respond-to(desktop) {
+      @include box(730px, 564px);
+    }
+  }
+  &__text {
+    @include respond-to(big-tablet) {
+      @include box(330px, 0px);
+    }
+    @include respond-to(desktop) {
+      @include box(350px, 0px);
+    }
+  }
+  .version {
+    @include respond-to(mini-tablet) {
+      @include flex(row, space-between, center, nowrap, 0px);
+    }
+    &__item {
+      @include flex(row, space-between, center, nowrap, 0px);
+      padding-top: 19px;
+      border-top: 1px solid #c0c0c0;
+      @include respond-to(mini-tablet) {
+        display: block;
+      }
+      @include respond-to(desktop) {
+        @include flex(row, space-between, center, nowrap, 0px);
+        @include box(350px, 0px);
+      }
+    }
+    &__item + .version__item {
+      margin-top: 20px;
+      @include respond-to(mini-tablet) {
+        margin-top: 0;
+      }
+    }
+    &__image {
+      @include box(130px, 96px);
+      @include respond-to(mini-tablet) {
+        @include box(150px, 111px);
+      }
+      @include respond-to(big-tablet) {
+        @include box(160px, 118px);
+      }
+    }
+    &__heading {
+      @extend %third-heading;
+    }
+    &__description {
+      line-height: 1.5;
+    }
+    &__text {
+      @include box(130px, 0px);
+      @include respond-to(mini-tablet) {
+        @include box(150px, 0px);
+      }
+      @include respond-to(big-tablet) {
+        @include box(160px, 0px);
+      }
+    }
+  }
+}
+
+.product {
+  background-color: white;
+  @include axis-indent(padding, y, 60px);
+  @include respond-to(desktop) {
+    @include axis-indent(padding, y, 90px);
+  }
+  &__card {
+    @include box(290px, 417px);
+    @include respond-to(mini-tablet) {
+      @include box(240px, 434px);
+    }
+    @include respond-to(big-tablet) {
+      @include box(330px, 434px);
+    }
+    @include respond-to(desktop) {
+      @include box(255px, 465px);
+    }
+    &:nth-child(1) {
+      & .product__image {
+        background-image: url("../images/package.png");
+        @include respond-to(mini-tablet) {
+          background-image: url("../images/packageMiniTablet.png");
+        }
+        @include respond-to(big-tablet) {
+          background-image: url("../images/packageBigTablet.png");
+        }
+        @include respond-to(desktop) {
+          background-image: url("../images/packageDesktop.png");
+        }
+      }
+    }
+    &:nth-child(2) {
+      margin-top: 60px;
+      @include respond-to(mini-tablet) {
+        margin-top: 0px;
+      }
+      .product__image {
+        background-image: url("../images/packet.png");
+        @include respond-to(mini-tablet) {
+          background-image: url("../images/packetMiniTablet.png");
+        }
+        @include respond-to(big-tablet) {
+          background-image: url("../images/packetBigTablet.png");
+        }
+        @include respond-to(desktop) {
+          background-image: url("../images/packetDesktop.png");
+        }
+      }
+    }
+    &:nth-child(3) {
+      margin-top: 60px;
+      @include respond-to(mini-tablet) {
+        margin-top: 40px;
+      }
+      @include respond-to(big-tablet) {
+        margin-top: 60px;
+      }
+      @include respond-to(desktop) {
+        margin-top: 0px;
+      }
+      .product__image {
+        background-image: url("../images/case.png");
+        @include respond-to(mini-tablet) {
+          background-image: url("../images/caseMiniTablet.png");
+        }
+        @include respond-to(big-tablet) {
+          background-image: url("../images/caseBigTablet.png");
+        }
+        @include respond-to(desktop) {
+          background-image: url("../images/caseDesktop.png");
+        }
+      }
+    }
+    &:nth-child(4) {
+      margin-top: 60px;
+      @include respond-to(mini-tablet) {
+        margin-top: 40px;
+      }
+      @include respond-to(big-tablet) {
+        margin-top: 60px;
+      }
+      @include respond-to(desktop) {
+        margin-top: 0px;
+      }
+      .product__image {
+        background-image: url("../images/other.png");
+        @include respond-to(mini-tablet) {
+          background-image: url("../images/otherMiniTablet.png");
+        }
+        @include respond-to(big-tablet) {
+          background-image: url("../images/otherBigTablet.png");
+        }
+        @include respond-to(desktop) {
+          background-image: url("../images/otherDesktop.png");
+        }
+      }
+    }
+  }
+  &__content {
+    @include respond-to(mini-tablet) {
+      @include flex(row, space-between, center, wrap, 0px);
+    }
+  }
+  &__image {
+    @extend %background-image;
+    background-image: url("../images/package.png");
+    @include box(290px, 180px);
+    @include respond-to(mini-tablet) {
+      @include box(240px, 180px);
+    }
+    @include respond-to(big-tablet) {
+      @include box(330px, 180px);
+    }
+    @include respond-to(desktop) {
+      @include box(255px, 180px);
+    }
+  }
+  &__heading {
+    @extend %product-heading;
+    margin-top: 20px;
+    margin-bottom: 4px;
+    @include respond-to(big-tablet) {
+      margin-bottom: 8px;
+    }
+  }
+  &__description {
+    margin-top: 8px;
+    margin-bottom: 30px;
+    @include respond-to(mini-tablet) {
+      margin-bottom: 20px;
+    }
+  }
+  &__subheading {
+    @extend %sub-heading;
+  }
+  &__link {
+    @extend %product-link;
+    @include flex(row, flex-start, center, nowrap, 4px);
+    @include box(fit-content);
+  }
+}
+
+.sponsor {
+  @include axis-indent(padding, y, 60px);
+  @include respond-to(desktop) {
+    @include axis-indent(padding, y, 90px);
+  }
+  &__image-box {
+    border: 1px #c4c4c4 solid;
+    @include flex(row, center, center, nowrap, 0px);
+    @include box(150px, 80px);
+    @include respond-to(mini-tablet) {
+      @include box(240px, 127px);
+    }
+    @include respond-to(big-tablet) {
+      @include box(150px, 80px);
+    }
+    @include respond-to(desktop) {
+      @include box(255px, 135px);
+    }
+  }
+  &__image {
+    &[alt="hahnemuhle"] {
+      @include box(116px, 33px);
+      @include respond-to(mini-tablet) {
+        @include box(185px, 52px);
+      }
+      @include respond-to(big-tablet) {
+        @include box(116px, 33px);
+      }
+      @include respond-to(desktop) {
+        @include box(197px, 55px);
+      }
+    }
+    &[alt="canson"] {
+      @include box(109px, 31px);
+      @include respond-to(mini-tablet) {
+        @include box(175px, 50px);
+      }
+      @include respond-to(big-tablet) {
+        @include box(109px, 31px);
+      }
+      @include respond-to(desktop) {
+        @include box(186px, 53px);
+      }
+    }
+    &[alt="royalTalens"] {
+      @include box(132px, 12px);
+      @include respond-to(mini-tablet) {
+        @include box(212px, 20px);
+      }
+      @include respond-to(big-tablet) {
+        @include box(132px, 12px);
+      }
+      @include respond-to(desktop) {
+        @include box(225px, 21px);
+      }
+    }
+    &[alt="fabriano"] {
+      @include box(123px, 15px);
+      @include respond-to(mini-tablet) {
+        @include box(197px, 24px);
+      }
+      @include respond-to(big-tablet) {
+        @include box(123px, 15px);
+      }
+      @include respond-to(desktop) {
+        @include box(209px, 26px);
+      }
+    }
+  }
+  .slider {
+    margin: 0 auto;
+    @include box(150px, fit-content);
+    @include respond-to(mini-tablet) {
+      @include box(fit-content);
+      overflow: hidden;
+    }
+    &__slides {
+      @include flex(row, space-between, center, wrap, 0px);
+      @include box(690px, 0px);
+      @include respond-to(mini-tablet) {
+        @include box(510px, 0px);
+      }
+      @include respond-to(big-tablet) {
+        @include box(690px, 0px);
+      }
+      @include respond-to(desktop) {
+        @include box(1110px, 0px);
+      }
+    }
+    &__slide {
+      &:nth-child(3),
+      &:nth-child(4) {
+        @include respond-to(mini-tablet) {
+          margin-top: 30px;
+        }
+        @include respond-to(big-tablet) {
+          margin-top: 0px;
+        }
+      }
+    }
+  }
+}
+
+.scetch {
+  background-color: white;
+  @include axis-indent(padding, y, 60px);
+  @include respond-to(desktop) {
+    padding-top: 90px;
+    padding-bottom: 0px;
+  }
+  &__content {
+    @include respond-to(big-tablet) {
+      @include flex(row-reverse, space-between, top, nowrap, 0px);
+    }
+  }
+  &__image {
+    @extend %background-image;
+    background-image: url("../images/scetch.png");
+    @include box(290px, 221px);
+    @include respond-to(mini-tablet) {
+      @include box(449px, 342px);
+      background-image: url("../images/scetchMiniTablet.png");
+      @include axis-indent(margin, x, auto);
+    }
+    @include respond-to(big-tablet) {
+      @include box(369px, 334px);
+      background-image: url("../images/scetchBigTablet.png");
+      @include axis-indent(margin, x, 0px);
+    }
+    @include respond-to(desktop) {
+      @include box(730px, 410px);
+      background-image: url("../images/scetchDesktop.png");
+    }
+  }
+  &__description {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    @include respond-to(desktop) {
+      margin-top: 8px;
+    }
+  }
+  &__text-button {
+    @include respond-to(mini-tablet) {
+      margin-top: 10px;
+    }
+    @include respond-to(big-tablet) {
+      margin-top: 0px;
+      @include box(330px, 0px);
+    }
+    @include respond-to(desktop) {
+      margin-top: 24px;
+      @include box(350px, 0px);
+    }
+  }
+}
+
+.contact {
+  background-color: map-get($colors-map, "contact-background");
+  &__content {
+    @include flex(column, center, center, nowrap, 0px);
+    @include respond-to(mini-tablet) {
+      @include flex(ROW, space-between, center, nowrap, 0px);
+      @include axis-indent(padding, y, 28px);
+    }
+  }
+  &__logo {
+    border-bottom: 1px solid #dddddd;
+    @include axis-indent(padding, xy, 0px, calc((290px - 140px) / 2), 20px);
+    @include respond-to(mini-tablet) {
+      @include axis-indent(padding, xy, 0px, 0px);
+      border: 0px;
+    }
+  }
+  &__social {
+    @include axis-indent(padding, y, 20px);
+    @include box(186px, 0px);
+    @include flex(row, space-between, center, nowrap, 0px);
+    @include respond-to(mini-tablet) {
+      @include axis-indent(padding, y, 0px);
+    }
+  }
+  &__social-link {
+    @extend %social-link;
+    @include flex(row, center, center, nowrap, 0px);
+  }
+}
+
+.footer {
+  &__text {
+    @extend %footer-text;
+    @include axis-indent(padding, y, 3px);
+    @include flex(row, center, center, nowrap, 0px);
+    &-span {
+      color: #bcbcbc;
+      @include axis-indent(padding, x, 2px);
+    }
+  }
+}

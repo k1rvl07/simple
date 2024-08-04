@@ -1,0 +1,359 @@
+// Переменные и мапы
+$colors-map: (
+  "page-background": #ebebeb,
+  "white-block-background": #ffffff,
+  "contact-background": #4c5866,
+  "heading-footer": #4c5866,
+  "other-heading": #666666,
+  "sub-heading": #b5b5bd,
+  "text": #85859b,
+  "link-button-interactive-default": #7875fe,
+  "link-button-interactive-active": #4946b4,
+  "icon-nav-interactive-default": #4c5866,
+  "nav-interactive-hover": #7875fe,
+  "icon-interactive-hover": #DAD9FB,
+  "icon-nav-interactive-active": #4946b4,
+  "input-placeholder": #b5b5bd,
+  "input-text": #4c5866,
+  "input-border-button": #d1d1e5,
+);
+
+$font-weights-map: (
+  "thin": 100,
+  "extra-light": 200,
+  "light": 300,
+  "regular": 400,
+  "medium": 500,
+  "semi-bold": 600,
+  "bold": 700,
+  "extra-bold": 800,
+  "black": 900,
+  "extra-black": 1000,
+);
+
+$text: (
+  heading "Roboto" regular normal map-get($colors-map, "heading-footer") 30px 38px 50px
+    60px,
+  second-heading "Roboto" regular normal map-get($colors-map, "other-heading")
+    24px 24px 30px 40px,
+  third-heading "Roboto" medium normal map-get($colors-map, "other-heading")
+    16px 16px 18px 18px,
+  sub-heading "Roboto" regular normal map-get($colors-map, "sub-heading") 14px
+    14px 14px 14px,
+  simple-text "Roboto" regular normal map-get($colors-map, "text") 16px 16px
+    18px 18px,
+  main-description "Roboto" regular normal map-get($colors-map, "text") 14px
+    16px 18px 18px,
+  input-placeholder "Roboto" regular normal
+    map-get($colors-map, "input-placeholder") 16px 18px 18px 20px,
+  input-text "Roboto" regular normal map-get($colors-map, "input-text") 16px
+    18px 18px 20px,
+  product-heading "Roboto" regular normal map-get($colors-map, "other-heading")
+    24px 24px 30px 30px,
+    footer-text "Roboto" regular normal map-get($colors-map, "heading-footer") 13px 13px 13px 13px,
+);
+
+$links: (
+  nav-link "Roboto" regular normal
+    map-get($colors-map, "icon-nav-interactive-default")
+    map-get($colors-map, "nav-interactive-hover")
+    map-get($colors-map, "icon-nav-interactive-active") 18px 20px 20px 20px,
+  product-link "Roboto" regular normal
+    map-get($colors-map, "link-button-interactive-default")
+    map-get($colors-map, "link-button-interactive-active")
+    map-get($colors-map, "link-button-interactive-active") 20px 20px 20px 20px
+);
+
+$buttons: (
+  main-button "Roboto" regular normal
+    map-get($colors-map, "link-button-interactive-default") white 18px 20px 20px
+    20px,
+);
+
+// Сложные миксины
+@mixin respond-to($media) {
+  @if $media == mini-tablet {
+    @media only screen and (min-width: 510px) {
+      @content;
+    }
+  } @else if $media == big-tablet {
+    @media only screen and (min-width: 690px) {
+      @content;
+    }
+  } @else if $media == desktop {
+    @media only screen and (min-width: 1110px) {
+      @content;
+    }
+  } @else {
+    @warn "'#{ $media }' is not a valid media query.";
+  }
+}
+
+@mixin box($width, $height: $width) {
+  width: $width;
+  @if $height != 0px {
+    height: $height;
+  }
+}
+
+@mixin flex(
+  $direction: row,
+  $justify: flex-start,
+  $align: flex-start,
+  $wrap: nowrap,
+  $gap: 0px
+) {
+  display: flex;
+
+  @if $direction != row  {
+    flex-direction: $direction;
+  } @else if $direction == ROW {
+    flex-direction: ROW;
+  }
+
+  @if $justify != flex-start {
+    justify-content: $justify;
+  }
+
+  @if $direction == row or $direction == row-reverse{
+    @if $align != flex-start {
+      align-items: $align;
+    }
+  } @else {
+    @if $align == flex-start {
+      align-items: $align;
+    }
+  }
+
+  @if $direction == column {
+    align-items: $align;
+  }
+
+  @if $wrap != nowrap {
+    flex-wrap: $wrap;
+  }
+
+  @if $gap != 0px {
+    gap: $gap;
+  }
+}
+
+@mixin axis-indent($type, $axis, $value, $xvalue: 0px, $yvalue: 0px) {
+  @if $axis == x {
+    #{$type}-left: $value;
+    #{$type}-right: $value;
+  } @else if $axis == y {
+    #{$type}-top: $value;
+    #{$type}-bottom: $value;
+  } @else if $axis == xy {
+    #{$type}-left: $xvalue;
+    #{$type}-right: $xvalue;
+    #{$type}-top: $yvalue;
+    #{$type}-bottom: $yvalue;
+  } @else {
+    @warn "'#{ $axis }' is not a valid axis.";
+  }
+}
+
+// Простые миксины
+
+
+// Сложные шаблоны
+
+@each $name, $weight in $font-weights-map {
+  %#{$name} {
+    font-weight: $weight;
+  }
+}
+
+@each $item in $text {
+  $name: nth($item, 1);
+  $font: nth($item, 2);
+  $font-weight: nth($item, 3);
+  $font-style: nth($item, 4);
+  $color: nth($item, 5);
+  $mobile-size: nth($item, 6);
+  $mini-tablet-size: nth($item, 7);
+  $big-tablet-size: nth($item, 8);
+  $desktop-size: nth($item, 9);
+
+  %#{$name} {
+    font-family: $font;
+    @extend %#{$font-weight};
+    font-style: $font-style;
+    color: $color;
+    font-size: $mobile-size;
+
+    @if $mobile-size != $mini-tablet-size {
+      @include respond-to(mini-tablet) {
+        font-size: $mini-tablet-size;
+      }
+    }
+
+    @if $mini-tablet-size != $big-tablet-size {
+      @include respond-to(big-tablet) {
+        font-size: $big-tablet-size;
+      }
+    }
+
+    @if $big-tablet-size != $desktop-size {
+      @include respond-to(desktop) {
+        font-size: $desktop-size;
+      }
+    }
+  }
+}
+
+@each $item in $links {
+  $name: nth($item, 1);
+  $font: nth($item, 2);
+  $font-weight: nth($item, 3);
+  $font-style: nth($item, 4);
+  $color: nth($item, 5);
+  $hover-color: nth($item, 6);
+  $active-color: nth($item, 7);
+  $mobile-size: nth($item, 8);
+  $mini-tablet-size: nth($item, 9);
+  $big-tablet-size: nth($item, 10);
+  $desktop-size: nth($item, 11);
+
+  %#{$name} {
+    font-family: $font;
+    @extend %#{$font-weight};
+    font-style: $font-style;
+    color: $color;
+    &:hover {
+      color: $hover-color;
+    }
+    @if $hover-color != $active-color {
+      &:active {
+        color: $active-color;
+      }
+    }
+
+    @if $mobile-size != $mini-tablet-size {
+      @include respond-to(mini-tablet) {
+        font-size: $mini-tablet-size;
+      }
+    }
+
+    @if $mini-tablet-size != $big-tablet-size {
+      @include respond-to(big-tablet) {
+        font-size: $big-tablet-size;
+      }
+    }
+
+    @if $big-tablet-size != $desktop-size {
+      @include respond-to(desktop) {
+        font-size: $desktop-size;
+      }
+    }
+  }
+}
+
+@each $item in $buttons {
+  $name: nth($item, 1);
+  $font: nth($item, 2);
+  $font-weight: nth($item, 3);
+  $font-style: nth($item, 4);
+  $color: nth($item, 5);
+  $hover-color: nth($item, 6);
+  $mobile-size: nth($item, 7);
+  $mini-tablet-size: nth($item, 8);
+  $big-tablet-size: nth($item, 9);
+  $desktop-size: nth($item, 10);
+
+  %#{$name} {
+    font-family: $font;
+    @extend %#{$font-weight};
+    font-style: $font-style;
+    color: $color;
+    &:hover {
+      color: $hover-color;
+    }
+    @include respond-to(mini-tablet) {
+      font-size: $mini-tablet-size;
+    }
+    @include respond-to(big-tablet) {
+      font-size: $big-tablet-size;
+    }
+    @include respond-to(desktop) {
+      font-size: $desktop-size;
+    }
+  }
+}
+
+// Простые шаблоны
+%container {
+  width: 290px;
+  margin: 0 auto;
+  @include respond-to(mini-tablet) {
+    width: 510px;
+  }
+  @include respond-to(big-tablet) {
+    width: 690px;
+  }
+  @include respond-to(desktop) {
+    width: 1110px;
+  }
+}
+
+%icon {
+  color: map-get($colors-map, "icon-nav-interactive-default");
+  &:hover {
+    color: map-get($colors-map, "icon-nav-interactive-hover");
+  }
+  &:active {
+    color: map-get($colors-map, "icon-nav-interactive-active");
+  }
+}
+
+%button {
+  @extend %main-button;
+  @include axis-indent(padding, xy, 0px, 38px, 14.5px);
+  border: 1px solid map-get($colors-map, "link-button-interactive-default");
+  &:hover {
+    background-color: map-get($colors-map, "link-button-interactive-default");
+  }
+  &:active {
+    background-color: map-get($colors-map, "link-button-interactive-active");
+    border: 1px solid map-get($colors-map, "link-button-interactive-active");
+  }
+  @include respond-to(mini-tablet) {
+    @include axis-indent(padding, xy, 0px, 60px, 18.5px);
+  }
+  @include respond-to(big-tablet) {
+    @include axis-indent(padding, xy, 0px, 89.5px, 23.5px);
+  }
+}
+
+%background-image {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: fixed;
+}
+
+%slider {
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+}
+
+%slides {
+  transition: transform 0.001s ease-in-out;
+}
+
+%slide {
+  scroll-snap-align: start;
+  overflow: hidden;
+  position: relative;
+}
+
+%social-link {
+  color: white;
+  &:hover {
+    color: map-get($colors-map, "icon-interactive-hover");
+  }
+  &:active {
+    color: map-get($colors-map, "icon-nav-interactive-active");
+  }
+}
