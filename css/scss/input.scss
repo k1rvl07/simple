@@ -666,9 +666,9 @@ body {
   }
   &__logo {
     border-bottom: 1px solid #dddddd;
-    @include axis-indent(padding, xy, 0px, calc((290px - 140px) / 2), 20px);
+    @include axis-indent(padding, xy, calc((290px - 140px) / 2), 20px);
     @include respond-to(mini-tablet) {
-      @include axis-indent(padding, xy, 0px, 0px);
+      @include axis-indent(padding, xy, 0px, 20px);
       border: 0px;
     }
   }

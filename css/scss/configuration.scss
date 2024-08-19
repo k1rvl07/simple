@@ -115,14 +115,10 @@ $buttons: (
     justify-content: $justify;
   }
 
-  @if $direction == row or $direction == row-reverse{
-    @if $align != flex-start {
-      align-items: $align;
-    }
-  } @else {
-    @if $align == flex-start {
-      align-items: $align;
-    }
+  @if ($direction == row or $direction == row-reverse) and $align != flex-start {
+    align-items: $align;
+  } @else if $direction != row and $direction != row-reverse and $align == flex-start {
+    align-items: $align;
   }
 
   @if $direction == column {
@@ -138,7 +134,7 @@ $buttons: (
   }
 }
 
-@mixin axis-indent($type, $axis, $value, $xvalue: 0px, $yvalue: 0px) {
+@mixin axis-indent($type, $axis, $value, $yvalue: 0px) {
   @if $axis == x {
     #{$type}-left: $value;
     #{$type}-right: $value;
@@ -146,8 +142,8 @@ $buttons: (
     #{$type}-top: $value;
     #{$type}-bottom: $value;
   } @else if $axis == xy {
-    #{$type}-left: $xvalue;
-    #{$type}-right: $xvalue;
+    #{$type}-left: $value;
+    #{$type}-right: $value;
     #{$type}-top: $yvalue;
     #{$type}-bottom: $yvalue;
   } @else {
@@ -310,7 +306,7 @@ $buttons: (
 
 %button {
   @extend %main-button;
-  @include axis-indent(padding, xy, 0px, 38px, 14.5px);
+  @include axis-indent(padding, xy, 38px, 14.5px);
   border: 1px solid map-get($colors-map, "link-button-interactive-default");
   &:hover {
     background-color: map-get($colors-map, "link-button-interactive-default");
@@ -320,10 +316,10 @@ $buttons: (
     border: 1px solid map-get($colors-map, "link-button-interactive-active");
   }
   @include respond-to(mini-tablet) {
-    @include axis-indent(padding, xy, 0px, 60px, 18.5px);
+    @include axis-indent(padding, xy, 60px, 18.5px);
   }
   @include respond-to(big-tablet) {
-    @include axis-indent(padding, xy, 0px, 89.5px, 23.5px);
+    @include axis-indent(padding, xy, 89.5px, 23.5px);
   }
 }
 
